@@ -1,0 +1,47 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Docusaurus Dev Server",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/.bin/docusaurus", // или @docusaurus/core/bin/docusaurus
+      "args": ["start"],
+      "env": {
+        "BROWSER": "none" // Предотвращает автоматическое открытие браузера
+      },
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": ["<node_internals>/**"],
+      "restart": true, // Позволяет перезапускать сервер
+      "autoAttachChildProcesses": true
+    },
+    {
+      "name": "Debug Docusaurus Build",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/.bin/docusaurus",
+      "args": ["build"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "Debug with Chrome",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000", // URL вашего dev-сервера
+      "webRoot": "${workspaceFolder}",
+      "sourceMapPathOverrides": {
+        "webpack:///./*": "${webRoot}/*"
+      }
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Launch Dev Server & Debug Chrome",
+      "configurations": ["Launch Docusaurus Dev Server", "Debug with Chrome"],
+      "stopAll": true
+    }
+  ]
+}
